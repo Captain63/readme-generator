@@ -3,6 +3,7 @@ const inquirer = require('inquirer');
 const utils = require('utils');
 const fs = require('fs');
 
+// Categories: Title, Description, Installation, Usage, License, Contributing, Tests, GitHub username, and email
 // Array of questions for user input
 const questions = [
     {
@@ -14,12 +15,25 @@ const questions = [
         type: 'input',
         message: "Enter a project description",
         name: "Description"
-    }
+    },
+    {
+        type: 'input',
+        message: "Enter installation instructions",
+        name: "Installation"
+    },
 ];
 
 // Function to write README file
 const writeToFile = (fileName, data) => {
-    fs.writeFile(fileName, JSON.stringify(data), (err) => {
+    const markdownText = `# ${data["Project Title"]} 
+ 
+## Description
+${data["Description"]}
+
+## Installation  
+${data["Installation"]}`;
+    
+    fs.writeFile(fileName, markdownText, (err) => {
         err ? console.error(err) : console.log("README created!");
     })
 }
@@ -30,7 +44,7 @@ const init = () => {
         .prompt(questions)
         .then((response) => {
             console.log("Responses captured");
-            writeToFile("Test-README.md", response);
+            writeToFile("README-Test.md", response);
         })      
 }
 
