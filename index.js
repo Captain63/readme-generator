@@ -57,9 +57,7 @@ const questions = [
 
 const licenseContent = {
     "Apache": {
-        notice: `Licensed under the Apache License, Version 2.0 (the "License");
-        you may not use this file except in compliance with the License.
-        You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0`,
+        notice: `Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0`,
         badgeSRC: `./license-badges/apache-license.svg`
     },
     "GNU": {
@@ -84,12 +82,12 @@ const writeToFile = (fileName, data) => {
 ${data["Description"]}
 
 ## Table of Contents
-- [Installation] (#installation)
-- [Usage] (#usage)
-- [License] (#license)
-- [Contributing] (#contributing)
-- [Tests] (#tests)
-- [Questions] (#questions)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
 
 ## Installation  
 ${data["Installation"]}
