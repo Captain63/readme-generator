@@ -136,7 +136,7 @@ const init = () => {
             // Confirms responses are submitted
             console.log("Responses captured");
 
-            // 
+            // Calls function to create file in markdown
             writeToFile(response);
         })      
 }
