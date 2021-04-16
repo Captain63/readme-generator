@@ -1,10 +1,7 @@
 // Installs modules needed for application
 const inquirer = require('inquirer');
-// Cross check if utils is needed
-const utils = require('utils');
 const fs = require('fs');
 
-// Categories: Title, Description, Installation, Usage, License, Contributing, Tests, GitHub username, and email
 // Array of questions for user input
 const questions = [
     {
@@ -55,6 +52,7 @@ const questions = [
     }
 ];
 
+// Stores license content for markdownText declaration to access
 const licenseContent = {
     "Apache": {
         notice: `Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0`,
@@ -71,10 +69,13 @@ const licenseContent = {
 };
 
 // Function to write README file
-const writeToFile = (fileName, data) => {
+const writeToFile = data => {
+    
+    // Captures text input for use in markdownText and later for naming file
+    let projectTitle = data["Project Title"];
     
     // Variable lays out text in markdown to pass into writeFile method
-    const markdownText = `# ${data["Project Title"]} 
+    const markdownText = `# ${projectTitle} 
 
 ![${data["License"]} badge](${licenseContent[data["License"]].badgeSRC})
 
@@ -107,7 +108,21 @@ ${data["Testing"]}
 
 ## Questions?
 Reach out to me on GitHub (${data["Username"]}) or email me at ${data["Email"]}`;
-    
+
+    // Declares empty fileName value for later assignment
+    let fileName = "";
+
+    // Confirms value was given for projectTitle from user
+    if (projectTitle) {
+        // Removes whitespace outside of phrase and replaces spaces between title with dashes
+        projectTitle = projectTitle.trim().split(" ").join("-");
+        fileName = `${projectTitle}-README.md`;
+    } else {
+        // Default file name
+        fileName = `Test-README.md`;
+    }
+
+    // Writes file
     fs.writeFile(fileName, markdownText, (err) => {
         err ? console.error(err) : console.log("README created!");
     })
@@ -118,8 +133,11 @@ const init = () => {
     inquirer
         .prompt(questions)
         .then((response) => {
+            // Confirms responses are submitted
             console.log("Responses captured");
-            writeToFile("README-Test.md", response);
+
+            // 
+            writeToFile(response);
         })      
 }
 
